@@ -1,21 +1,228 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { ScrollView, SafeAreaView } from "react-native";
+import styled from "styled-components";
+import Card from "./components/Card";
+import { Icon } from "expo";
+import { NotificationIcon } from "./components/Icons";
+import Logo from "./components/Logo";
+import Course from "./components/Course";
+import Menu from "./components/Menu";
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>My First App</Text>
-      </View>
+      <Container>
+        <Menu />
+        <SafeAreaView>
+          <ScrollView>
+            <TitleBar>
+              <Avatar source={require("./assets/avatar-default.jpg")} />
+              <Title>Welcome back,</Title>
+              <Name>Umiigo</Name>
+              <NotificationIcon
+                style={{ position: "absolute", right: 20, top: 5 }}
+              />
+            </TitleBar>
+            <ScrollView
+              style={{
+                flexDirection: "row",
+                padding: 20,
+                paddingLeft: 12,
+                paddingTop: 30
+              }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {logos.map((logo, index) => (
+                <Logo image={logo.image} text={logo.text} key={index} />
+              ))}
+            </ScrollView>
+            <Subtitle>Continue Learning</Subtitle>
+            <ScrollView
+              horizontal={true}
+              style={{ paddingBottom: 30 }}
+              showsHorizontalScrollIndicator={false}
+            >
+              {cards.map((card, index) => (
+                <Card
+                  key={index}
+                  title={card.title}
+                  image={card.image}
+                  logo={card.logos}
+                  caption={card.caption}
+                  subtitle={card.subtitle}
+                />
+              ))}
+            </ScrollView>
+            <Subtitle>Popular Courses</Subtitle>
+            <CourseContainer>
+              {courses.map((course, index) => (
+                <Course
+                  key={index}
+                  title={course.title}
+                  subtitle={course.subtitle}
+                  image={course.image}
+                  logo={course.logo}
+                  name={course.author}
+                  avatar={course.avatar}
+                  caption={course.caption}
+                />
+              ))}
+            </CourseContainer>
+          </ScrollView>
+        </SafeAreaView>
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+//Main Page Container
+const Container = styled.View`
+  flex: 1;
+  background-color: #f0f3f5;
+`;
+
+//Title Bar Container
+const TitleBar = styled.View`
+  width: 100%;
+  margin-top: 50px;
+  padding-left: 80px;
+`;
+
+const Avatar = styled.Image`
+  width: 44px;
+  height: 44px;
+  background: black;
+  border-radius: 22px;
+  margin-left: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const Title = styled.Text`
+  font-size: 16px;
+  color: #b8bece;
+  font-weight: 500;
+`;
+
+const Name = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: #3c4560;
+`;
+
+//Initial Swipeable List
+
+//Continue Learning Section
+
+const Subtitle = styled.Text`
+  font-weight: 600;
+  font-size: 15px;
+  color: #b8bece;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+`;
+
+const CourseContainer = styled.View`
+  margin-left: 10px;
+`;
+
+const logos = [
+  {
+    image: require("./assets/logo-framerx.png"),
+    text: "Framer-X"
   },
-});
+  {
+    image: require("./assets/logo-figma.png"),
+    text: "Figma"
+  },
+  {
+    image: require("./assets/logo-studio.png"),
+    text: "Studio"
+  },
+  {
+    image: require("./assets/logo-react.png"),
+    text: "React"
+  },
+  {
+    image: require("./assets/logo-swift.png"),
+    text: "Swift"
+  },
+  {
+    image: require("./assets/logo-sketch.png"),
+    text: "Sketch"
+  }
+];
+
+const cards = [
+  {
+    title: "React Native for Designers",
+    image: require("./assets/background11.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Styled Components",
+    image: require("./assets/background12.jpg"),
+    subtitle: "React Native",
+    caption: "2 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Props and Icons",
+    image: require("./assets/background13.jpg"),
+    subtitle: "React Native",
+    caption: "3 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Static Data and Loop",
+    image: require("./assets/background14.jpg"),
+    subtitle: "React Native",
+    caption: "4 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  }
+];
+
+const courses = [
+  {
+    title: "Prototype in InVision Studio",
+    subtitle: "10 sections",
+    image: require("./assets/background13.jpg"),
+    logo: require("./assets/logo-studio.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Design an interactive prototype"
+  },
+  {
+    title: "React for Designers",
+    subtitle: "12 sections",
+    image: require("./assets/background11.jpg"),
+    logo: require("./assets/logo-react.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Learn to design and code a React site"
+  },
+  {
+    title: "Design and Code with Framer X",
+    subtitle: "10 sections",
+    image: require("./assets/background14.jpg"),
+    logo: require("./assets/logo-framerx.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Create powerful design and code components for your app"
+  },
+  {
+    title: "Design System in Figma",
+    subtitle: "10 sections",
+    image: require("./assets/background6.jpg"),
+    logo: require("./assets/logo-figma.png"),
+    author: "Meng To",
+    avatar: require("./assets/avatar.jpg"),
+    caption:
+      "Complete guide to designing a site using a collaborative design tool"
+  }
+];
